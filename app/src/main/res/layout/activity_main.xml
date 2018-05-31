@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.MainActivity">
+
+    <Button
+        android:id="@+id/btn_ShowPublicPhoto"
+        android:layout_width="205dp"
+        android:layout_height="89dp"
+        android:background="@drawable/ic_launcher_foreground"
+        android:text="Show Public Photos"
+        android:textColor="@color/colorPrimaryDark"
+        tools:layout_editor_absoluteX="90dp"
+        tools:layout_editor_absoluteY="178dp" />
+</android.support.constraint.ConstraintLayout>
