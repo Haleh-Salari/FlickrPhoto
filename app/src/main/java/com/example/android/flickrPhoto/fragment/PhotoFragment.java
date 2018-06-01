@@ -20,6 +20,7 @@ public class PhotoFragment extends Fragment {
         // Required empty public constructor
     }
 
+    //retrieve the photo based on its url
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

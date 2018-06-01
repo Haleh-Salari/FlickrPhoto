@@ -2,6 +2,7 @@ package com.example.android.flickrPhoto.model;
 
 import java.io.Serializable;
 
+//it defines photo attributes
 public class GalleryItem implements Serializable {
     private String id;
     private String secret;

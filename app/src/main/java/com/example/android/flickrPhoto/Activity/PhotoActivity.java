@@ -16,6 +16,8 @@ public class PhotoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photo);
         retrievePhoto();
     }
+
+    //retrieve photo by using photo fragment
     private void retrievePhoto() {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);

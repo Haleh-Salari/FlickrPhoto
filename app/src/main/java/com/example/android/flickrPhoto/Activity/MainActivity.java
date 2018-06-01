@@ -9,17 +9,8 @@ import com.example.android.flickrPhoto.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    public Button btn_ShowPublicPhoto;
-    public void init(){
-        btn_ShowPublicPhoto = (Button)findViewById(R.id.btn_ShowPublicPhoto);
-        btn_ShowPublicPhoto.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-            Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
-            startActivity(intent);
-            }
-        });
-    }
+    public Button btn_ShowPublicPhotos;
+    public Button btn_ShowPrivatePhotos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,4 +18,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
     }
+
+    public void init(){
+        btn_ShowPublicPhotos = (Button)findViewById(R.id.btn_ShowPublicPhotos);
+        btn_ShowPublicPhotos.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                defineNextIntent("showPublicPhotos");
+            }
+        });
+
+        btn_ShowPrivatePhotos = (Button)findViewById(R.id.btn_ShowPrivatePhotos);
+        btn_ShowPrivatePhotos.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                defineNextIntent("showPrivatePhotos");
+            }
+        });
+    }
+
+    //define the next intent and pass the show options to it.
+    private void defineNextIntent (String showOptions){
+        Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
+        intent.putExtra("showOptions", showOptions);
+        startActivity(intent);
+    }
+
 }

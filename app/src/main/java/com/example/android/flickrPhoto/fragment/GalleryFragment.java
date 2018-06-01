@@ -27,8 +27,13 @@ import com.example.android.flickrPhoto.util.URLManager;
 
 public class GalleryFragment extends Fragment {
 
+    // each requests was labeled by TAG before adding it to the request queue
     private static final String TAG = GalleryFragment.class.getSimpleName();
+
+    //it defines the gallery columns
     private static final int COLUMN_NUM = 3;
+
+    //it used to find how many pages should be load depends on flickr api result
     private static final int ITEM_PER_PAGE = 12;
 
     private RequestQueue mRq;
@@ -40,6 +45,9 @@ public class GalleryFragment extends Fragment {
 
     private boolean mLoading = false;
     private boolean mHasMore = true;
+
+    //it defines that the fragment should retrieve public or private photos depends on user's choice
+    public String fragmentShowOptions;
 
     public GalleryFragment() {
         // Required empty public constructor
@@ -87,7 +95,6 @@ public class GalleryFragment extends Fragment {
                 }
         );
 
-        startLoading();
         return view;
     }
 
@@ -99,10 +106,10 @@ public class GalleryFragment extends Fragment {
     private void startLoading() {
         mLoading = true;
 
+        String url;
+
         int totalItem = mLayoutManager.getItemCount();
         final int page = totalItem / ITEM_PER_PAGE + 1;
-
-        String url = URLManager.getInstance().getItemUrl();
 
         Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
             @Override
@@ -141,9 +148,27 @@ public class GalleryFragment extends Fragment {
             }
         };
 
-        JsonObjectRequest request = new JsonObjectRequest(url, null, listener, errorListener);
-        request.setTag(TAG);
-        mRq.add(request);
+        if (fragmentShowOptions.equals("showPublicPhotos")){
+            url = URLManager.getInstance().getItemUrl(true);
+        }
+        else {
+            if (fragmentShowOptions.equals("showPrivatePhotos")) {
+                url = URLManager.getInstance().getItemUrl(false);
+            } else {
+                url = "";
+            }
+        }
+
+        if (url != ""){
+            //make a request for retrieving photos from flickr api
+            JsonObjectRequest request = new JsonObjectRequest(url, null, listener, errorListener);
+
+            //labeled the request
+            request.setTag(TAG);
+
+            //add the request to the queue
+            mRq.add(request);
+        }
     }
 
     @Override
@@ -153,8 +178,14 @@ public class GalleryFragment extends Fragment {
     }
 
     private void stopLoading() {
+
+        //it cancel all existed request in queue
+        //we should do it when we want to switch between showing different kind of photos (public or private)
         if (mRq != null) {
             mRq.cancelAll(TAG);
         }
+
     }
+
+
 }

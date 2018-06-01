@@ -53,6 +53,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
                 mContext.startActivity(intent);
             }
         });
+
+        //glide is a 3rd party library used for cash photos to show them as quickly as possible
         Glide.with(mContext)
                 .load(item.getUrl())
                 .thumbnail(0.5f)
